@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(name = "ms-content", url = "http://localhost:8084/subscription")
+@FeignClient(name = "ms-content", url = "http://192.168.88.13:8084/subscription")
 public interface ContentClient {
 
     @RequestMapping(method = RequestMethod.POST)
