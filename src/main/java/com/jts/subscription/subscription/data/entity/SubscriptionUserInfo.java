@@ -26,9 +26,9 @@ public class SubscriptionUserInfo {
     private UUID userId;
     @Column(name = "telegram_id")
     private String telegramId;
-    @Column(name = "subscription_id")
-    private UUID subscriptionId;
+    @Column(name = "subscription_title")
+    private String subscriptionTitle;
     @Column(name = "order_number")
-    private Integer order;
+    private int order = 0;
 
 }
