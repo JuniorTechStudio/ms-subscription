@@ -14,8 +14,8 @@ public class SubscriptionFacade {
 
     public void prepareAndSendSubscriptionUserInfoRequest(String title) {
         var subscriptionUserInfoList = subscriptionService.findSubscriptionUserInfoAndIncrementOrder(title);
-        var subscriptionUserInfoRequest = subscriptionService.prepareSubscriptionUserInfoRequest(subscriptionUserInfoList);
-        contentClient.prepareAndSendContent(subscriptionUserInfoRequest);
+        var prepareAndSendContentRequest = subscriptionService.createPrepareAndSendContentRequest(subscriptionUserInfoList);
+        contentClient.prepareAndSendContent(prepareAndSendContentRequest);
     }
 
 }

@@ -20,7 +20,7 @@ public class SubscriptionService {
     private final SubscriptionUserInfoRepository subscriptionUserInfoRepository;
     private final SubscriptionUserInfoMapper subscriptionUserInfoMapper;
 
-    public PrepareAndSendContentRequest prepareSubscriptionUserInfoRequest(List<SubscriptionUserInfo> subscriptionUserInfoList) {
+    public PrepareAndSendContentRequest createPrepareAndSendContentRequest(List<SubscriptionUserInfo> subscriptionUserInfoList) {
         return PrepareAndSendContentRequest
                 .builder()
                 .subscriptionUserInfoDTOList(subscriptionUserInfoMapper.mapToSubscriptionUserInfoDTO(subscriptionUserInfoList))
