@@ -1,6 +1,6 @@
 package com.jts.subscription.subscription.scheduler;
 
-import com.jts.subscription.subscription.service.SubscriptionService;
+import com.jts.subscription.subscription.facade.SubscriptionFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -9,20 +9,21 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SubscriptionScheduler {
 
-    private final SubscriptionService subscriptionService;
+    private final SubscriptionFacade subscriptionFacade;
 
-    @Scheduled(fixedDelay = 10000L)
+    @Scheduled(cron = "0 0 11 * * *", zone = "Europe/Moscow")
     public void prepareJavaContent() {
-        subscriptionService.prepareContentByTitle("Java");
+        subscriptionFacade.prepareAndSendSubscriptionUserInfoRequest("Java");
     }
 
-    @Scheduled(fixedDelay = 10000L)
+//    @Scheduled(cron = "0 0 12 * * *", zone = "Europe/Moscow")
     public void prepareSQLContent() {
-        subscriptionService.prepareContentByTitle("SQL");
+        subscriptionFacade.prepareAndSendSubscriptionUserInfoRequest("SQL");
     }
 
-    @Scheduled(fixedDelay = 10000L)
+//    @Scheduled(cron = "0 0 13 * * *", zone = "Europe/Moscow")
     public void prepareEnglishContent() {
-        subscriptionService.prepareContentByTitle("English");
+        subscriptionFacade.prepareAndSendSubscriptionUserInfoRequest("English");
     }
+
 }

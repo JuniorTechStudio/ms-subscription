@@ -27,6 +27,8 @@ public class Subscription {
     )
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
+
     @Column(name = "title")
     private String title;
+
 }

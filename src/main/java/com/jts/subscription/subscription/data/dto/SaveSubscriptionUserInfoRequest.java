@@ -11,8 +11,9 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubscriptionUserInfoRequest {
+public class SaveSubscriptionUserInfoRequest {
     private UUID userId;
     private String telegramId;
     private String subscriptionTitle;
+    private int order;
 }

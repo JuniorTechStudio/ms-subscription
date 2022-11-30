@@ -24,11 +24,18 @@ public class SubscriptionUserInfo {
     @Id
     @Column(name = "user_id")
     private UUID userId;
+
     @Column(name = "telegram_id")
     private String telegramId;
+
     @Column(name = "subscription_title")
     private String subscriptionTitle;
+
     @Column(name = "order_number")
-    private int order = 0;
+    private int order;
+
+    public void incrementOrder() {
+        this.order++;
+    }
 
 }

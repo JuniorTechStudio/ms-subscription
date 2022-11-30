@@ -11,4 +11,5 @@ import java.util.UUID;
 public interface SubscriptionUserInfoRepository extends JpaRepository<SubscriptionUserInfo, UUID> {
 
     List<SubscriptionUserInfo> findAllBySubscriptionTitle(String subscriptionTitle);
+
 }
