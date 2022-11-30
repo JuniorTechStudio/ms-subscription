@@ -13,17 +13,17 @@ public class SubscriptionScheduler {
 
     @Scheduled(cron = "0 0 11 * * *", zone = "Europe/Moscow")
     public void prepareJavaContent() {
-        subscriptionFacade.prepareAndSendSubscriptionUserInfoRequest("Java");
+        subscriptionFacade.createAndSendPrepareAndSendContentRequest("Java");
     }
 
 //    @Scheduled(cron = "0 0 12 * * *", zone = "Europe/Moscow")
     public void prepareSQLContent() {
-        subscriptionFacade.prepareAndSendSubscriptionUserInfoRequest("SQL");
+        subscriptionFacade.createAndSendPrepareAndSendContentRequest("SQL");
     }
 
 //    @Scheduled(cron = "0 0 13 * * *", zone = "Europe/Moscow")
     public void prepareEnglishContent() {
-        subscriptionFacade.prepareAndSendSubscriptionUserInfoRequest("English");
+        subscriptionFacade.createAndSendPrepareAndSendContentRequest("English");
     }
 
 }

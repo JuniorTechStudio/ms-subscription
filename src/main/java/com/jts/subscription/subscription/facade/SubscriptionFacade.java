@@ -12,7 +12,7 @@ public class SubscriptionFacade {
     private final ContentClient contentClient;
     private final SubscriptionService subscriptionService;
 
-    public void prepareAndSendSubscriptionUserInfoRequest(String title) {
+    public void createAndSendPrepareAndSendContentRequest(String title) {
         var subscriptionUserInfoList = subscriptionService.findSubscriptionUserInfoAndIncrementOrder(title);
         var prepareAndSendContentRequest = subscriptionService.createPrepareAndSendContentRequest(subscriptionUserInfoList);
         contentClient.prepareAndSendContent(prepareAndSendContentRequest);
