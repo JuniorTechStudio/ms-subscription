@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "ms-content", url = "localhost:8084/")
+@FeignClient(name = "ms-content", url = "${feign.content.url}")
 public interface ContentClient {
 
     @PostMapping("subscription/send")

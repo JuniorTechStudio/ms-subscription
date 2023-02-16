@@ -35,9 +35,8 @@ public class SubscriptionService {
     }
 
     public void saveSubscriptionUserInfo(SaveSubscriptionUserInfoRequest request) {
-        subscriptionUserInfoRepository.save(
-                subscriptionUserInfoMapper.mapToSubscriptionUserInfo(request)
-        );
+        subscriptionUserInfoRepository
+                .save(subscriptionUserInfoMapper.mapToSubscriptionUserInfo(request));
     }
 
 }

@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: ms-subscription
+  cloud:
+    config:
+      uri: http://localhost:8001
