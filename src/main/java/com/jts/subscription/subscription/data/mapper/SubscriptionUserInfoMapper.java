@@ -16,6 +16,7 @@ public interface SubscriptionUserInfoMapper {
     List<SubscriptionUserInfoDTO> mapToSubscriptionUserInfoDTO(List<SubscriptionUserInfo> subscriptionUserInfoList);
 
     @Mapping(target = "order", ignore = true)
+    @Mapping(target = "subscriptionId", ignore = true)
     SubscriptionUserInfo mapToSubscriptionUserInfo(SaveSubscriptionUserInfoRequest subscriptionUserInfoRequest);
 
 }

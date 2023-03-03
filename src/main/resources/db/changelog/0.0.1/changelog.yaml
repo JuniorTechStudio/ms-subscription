@@ -7,3 +7,5 @@ databaseChangeLog:
       file: db/changelog/0.0.1/changes/0.0.3-change-field-in-subscription_user_info.sql
   - include:
       file: db/changelog/0.0.1/changes/0.0.4-drop-constraint-from-subscription_user_info.sql
+  - include:
+      file: db/changelog/0.0.1/changes/0.0.5-add-field-to-subscription_user_info.sql

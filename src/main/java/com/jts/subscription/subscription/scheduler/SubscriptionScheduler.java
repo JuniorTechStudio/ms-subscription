@@ -16,12 +16,12 @@ public class SubscriptionScheduler {
         subscriptionFacade.createAndSendPrepareAndSendContentRequest("Java");
     }
 
-//    @Scheduled(cron = "0 0 12 * * *", zone = "Europe/Moscow")
+    @Scheduled(cron = "0 0 12 * * *", zone = "Europe/Moscow")
     public void prepareSQLContent() {
         subscriptionFacade.createAndSendPrepareAndSendContentRequest("SQL");
     }
 
-//    @Scheduled(cron = "0 0 13 * * *", zone = "Europe/Moscow")
+    @Scheduled(cron = "0 0 13 * * *", zone = "Europe/Moscow")
     public void prepareEnglishContent() {
         subscriptionFacade.createAndSendPrepareAndSendContentRequest("English");
     }

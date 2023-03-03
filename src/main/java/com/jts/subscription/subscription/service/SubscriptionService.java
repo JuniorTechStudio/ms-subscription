@@ -2,6 +2,7 @@ package com.jts.subscription.subscription.service;
 
 import com.jts.subscription.subscription.data.dto.SaveSubscriptionUserInfoRequest;
 import com.jts.subscription.subscription.data.dto.PrepareAndSendContentRequest;
+import com.jts.subscription.subscription.data.dto.SubscriptionUserInfoDTO;
 import com.jts.subscription.subscription.data.entity.SubscriptionUserInfo;
 import com.jts.subscription.subscription.data.mapper.SubscriptionUserInfoMapper;
 import com.jts.subscription.subscription.repository.SubscriptionUserInfoRepository;
@@ -37,6 +38,15 @@ public class SubscriptionService {
     public void saveSubscriptionUserInfo(SaveSubscriptionUserInfoRequest request) {
         subscriptionUserInfoRepository
                 .save(subscriptionUserInfoMapper.mapToSubscriptionUserInfo(request));
+    }
+
+    public void completeSubscription(List<SubscriptionUserInfoDTO> completedSubscriptionList) {
+        for (SubscriptionUserInfoDTO subscriptionUserInfoDTO : completedSubscriptionList) {
+            String id = subscriptionUserInfoDTO.getTelegramId();
+            String title = subscriptionUserInfoDTO.getSubscriptionTitle();
+
+            subscriptionUserInfoRepository.deleteByTelegramIdAndSubscriptionTitle(id, title);
+        }
     }
 
 }
