@@ -6,10 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -28,8 +25,9 @@ public class SubscriptionUserInfo {
     @Column(name = "telegram_id")
     private String telegramId;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "subscription_title")
-    private String subscriptionTitle;
+    private SubscriptionTitle subscriptionTitle;
 
     @Column(name = "order_number")
     private int order;

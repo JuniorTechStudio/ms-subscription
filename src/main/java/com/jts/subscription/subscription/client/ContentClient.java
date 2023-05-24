@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface ContentClient {
 
     @PostMapping("subscription/send")
-    void prepareAndSendContent(@RequestBody PrepareAndSendContentRequest request);
+    void sendContent(@RequestBody PrepareAndSendContentRequest request);
+
+    @PostMapping("word/send/random")
+    void sendWord(@RequestBody PrepareAndSendContentRequest request);
 
 }

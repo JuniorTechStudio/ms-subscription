@@ -29,6 +29,7 @@ public class Subscription {
     private UUID id;
 
     @Column(name = "title")
-    private String title;
+    @Enumerated(EnumType.STRING)
+    private SubscriptionTitle title;
 
 }
