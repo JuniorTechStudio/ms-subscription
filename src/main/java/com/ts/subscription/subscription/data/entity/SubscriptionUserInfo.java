@@ -1,13 +1,16 @@
-package com.jts.subscription.subscription.data.entity;
+package com.ts.subscription.subscription.data.entity;
 
+import java.util.UUID;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
-
-import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @Table(schema = "subscription", name = "subscription_user_info")
@@ -25,15 +28,13 @@ public class SubscriptionUserInfo {
     @Column(name = "telegram_id")
     private String telegramId;
 
-    @Enumerated(EnumType.STRING)
+    @Column(name = "subscription_id")
+    private UUID subscriptionId;
+
     @Column(name = "subscription_title")
-    private SubscriptionTitle subscriptionTitle;
+    private String subscriptionTitle;
 
     @Column(name = "order_number")
     private int order;
-
-    public void incrementOrder() {
-        this.order++;
-    }
 
 }

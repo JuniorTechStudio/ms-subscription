@@ -1,6 +1,6 @@
-package com.jts.subscription.subscription.repository;
+package com.ts.subscription.subscription.repository;
 
-import com.jts.subscription.subscription.data.entity.Subscription;
+import com.ts.subscription.subscription.data.entity.Subscription;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,4 +1,4 @@
-package com.jts.subscription.subscription.data.dto;
+package com.ts.subscription.subscription.data.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,8 +12,11 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SaveSubscriptionUserInfoRequest {
+
     private UUID userId;
     private String telegramId;
+    private UUID subscriptionId;
     private String subscriptionTitle;
     private int order;
+
 }

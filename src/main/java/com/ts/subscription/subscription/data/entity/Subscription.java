@@ -1,20 +1,15 @@
-package com.jts.subscription.subscription.data.entity;
+package com.ts.subscription.subscription.data.entity;
 
+import jakarta.persistence.*;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
-import java.util.UUID;
 
 @Entity
 @Table(schema = "subscription", name = "subscription")
-@DynamicUpdate
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Subscription {
@@ -29,7 +24,6 @@ public class Subscription {
     private UUID id;
 
     @Column(name = "title")
-    @Enumerated(EnumType.STRING)
-    private SubscriptionTitle title;
+    private String title;
 
 }
