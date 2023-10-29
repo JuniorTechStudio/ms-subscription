@@ -4,3 +4,9 @@ spring:
   cloud:
     config:
       uri: http://localhost:8001
+
+feign:
+  content:
+    url: mock
+  telegram-adapter:
+    url: mock
