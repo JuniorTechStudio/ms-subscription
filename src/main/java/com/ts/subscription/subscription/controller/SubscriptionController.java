@@ -1,12 +1,12 @@
 package com.ts.subscription.subscription.controller;
 
-import com.ts.subscription.subscription.data.dto.SaveSubscriptionUserInfoRequest;
+import com.ts.subscription.subscription.data.dto.*;
 import com.ts.subscription.subscription.service.SubscriptionService;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,19 +16,36 @@ public class SubscriptionController {
     private final SubscriptionService subscriptionService;
 
     @GetMapping
-    public ResponseEntity<List<Object>> getAllSubscriptions() {
-        return subscriptionService.getAllSubscriptionInfo();
+    public ResponseEntity<SubscriptionsList> getAllSubscriptions() {
+        var subscriptionsList = subscriptionService.getAllSubscriptionInfo();
+        return ResponseEntity.ok(subscriptionsList);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Void> getSubscriptionById(@PathVariable String id) {
-        return null;
+    @GetMapping("/{subscriptionId}")
+    public ResponseEntity<SubscriptionValue> getSubscriptionById(@PathVariable UUID subscriptionId) {
+        var subscriptionValue = subscriptionService.getSubscriptionById(subscriptionId);
+        return ResponseEntity.ok(subscriptionValue);
     }
 
     @PostMapping
-    public ResponseEntity<Void> saveSubscriptionUserInfo(@RequestBody SaveSubscriptionUserInfoRequest request) {
-        subscriptionService.saveSubscriptionUserInfo(request);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<SubscriptionValue> saveSubscriptionUserInfo(@RequestBody SubscriptionCreateRequest request) {
+        var savedSubscription = subscriptionService.saveSubscription(request);
+        return ResponseEntity.ok(savedSubscription);
     }
 
+    @PatchMapping("/{subscriptionId}")
+    public ResponseEntity<SubscriptionUpdateResponse> updateSubscription(
+            @PathVariable UUID subscriptionId,
+            @RequestBody SubscriptionUpdateRequest request
+    ) {
+        var updatedSubscription = subscriptionService.updateSubscription(subscriptionId, request);
+        return ResponseEntity.ok(updatedSubscription);
+    }
+
+    @DeleteMapping("/{subscriptionId}")
+    public ResponseEntity<Void> deleteSubscription(@PathVariable UUID subscriptionId) {
+        subscriptionService.deleteSubscription(subscriptionId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    
 }

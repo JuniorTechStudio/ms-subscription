@@ -1,13 +1,11 @@
 package com.ts.subscription.subscription.data.entity;
 
-import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
@@ -16,7 +14,6 @@ import org.hibernate.annotations.DynamicUpdate;
 @Table(schema = "subscription", name = "subscription_user_info")
 @DynamicUpdate
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class SubscriptionUserInfo {
@@ -35,6 +32,6 @@ public class SubscriptionUserInfo {
     private String subscriptionTitle;
 
     @Column(name = "order_number")
-    private int order;
+    private int orderNumber;
 
 }

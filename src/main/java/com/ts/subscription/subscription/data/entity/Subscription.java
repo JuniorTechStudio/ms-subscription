@@ -2,14 +2,16 @@ package com.ts.subscription.subscription.data.entity;
 
 import jakarta.persistence.*;
 import java.util.UUID;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(schema = "subscription", name = "subscription")
-@Data
+@Getter
+@Setter
+@Accessors(chain = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class Subscription {
