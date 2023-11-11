@@ -3,6 +3,8 @@ package com.ts.subscription.subscription.controller;
 import com.ts.subscription.subscription.data.dto.*;
 import com.ts.subscription.subscription.service.SubscriptionService;
 import java.util.UUID;
+
+import com.ts.subscription.subscription.service.UserInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class SubscriptionController {
 
     private final SubscriptionService subscriptionService;
+    private final UserInfoService userInfoService;
 
     @GetMapping
     public ResponseEntity<SubscriptionsList> getAllSubscriptions() {
@@ -46,6 +49,15 @@ public class SubscriptionController {
     public ResponseEntity<Void> deleteSubscription(@PathVariable UUID subscriptionId) {
         subscriptionService.deleteSubscription(subscriptionId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PostMapping("/{subscriptionId}/users")
+    public ResponseEntity<Void> subscribe(
+            @PathVariable UUID subscriptionId,
+            @RequestBody AddUserToSubscriptionRequest request
+    ) {
+        userInfoService.subscribe(subscriptionId, request);
+        return ResponseEntity.ok().build();
     }
     
 }

@@ -8,11 +8,13 @@ import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Table(schema = "subscription", name = "subscription_user_info")
 @DynamicUpdate
+@Accessors(chain = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

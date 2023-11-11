@@ -1,7 +1,6 @@
 package com.ts.subscription.subscription.client;
 
 import com.ts.subscription.subscription.data.dto.TelegramSendContentRequest;
-import java.util.List;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface TelegramAdapterClient {
 
   @PostMapping("/send")
-  void sendContent(@RequestBody List<TelegramSendContentRequest> telegramSendContentRequestList);
+  void sendContent(@RequestBody TelegramSendContentRequest telegramSendContentRequest);
 
 }

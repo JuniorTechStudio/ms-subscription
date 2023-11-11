@@ -1,5 +1,7 @@
 package com.ts.subscription.subscription.service;
 
+import static java.lang.String.format;
+
 import com.ts.subscription.subscription.client.ContentClient;
 import com.ts.subscription.subscription.data.dto.*;
 import com.ts.subscription.subscription.data.entity.Subscription;
@@ -7,17 +9,12 @@ import com.ts.subscription.subscription.data.entity.SubscriptionUserInfo;
 import com.ts.subscription.subscription.data.mapper.SubscriptionMapper;
 import com.ts.subscription.subscription.error.SubscriptionNotFound;
 import com.ts.subscription.subscription.repository.SubscriptionRepository;
-import com.ts.subscription.subscription.repository.SubscriptionUserInfoRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import static java.lang.String.format;
 
 @Slf4j
 @Service
@@ -56,19 +53,19 @@ public class SubscriptionService {
     subscriptionRepository.deleteById(subscriptionId);
   }
 
-  public List<TelegramSendContentRequest> prepareContentForSending(List<SubscriptionUserInfo> subscriptionUserInfoList) {
-    List<TelegramSendContentRequest> requestList = new ArrayList<>();
+  public TelegramSendContentRequest prepareContentForSending(List<SubscriptionUserInfo> subscriptionUserInfoList) {
+    List<TextToSend> requestList = new ArrayList<>();
     subscriptionUserInfoList.forEach(userInfo -> {
       UUID subscriptionId = userInfo.getSubscriptionId();
       int orderNumber = userInfo.getOrderNumber();
       try {
         String content = contentClient.getContentByOrderNumber(subscriptionId, orderNumber);
-        requestList.add(new TelegramSendContentRequest(userInfo.getTelegramId(), content));
+        requestList.add(new TextToSend(userInfo.getTelegramId(), content));
       } catch (Exception e) {
         log.error(format("Can not get content by subscriptionId[%s] and orderNumber[%s]", subscriptionId, orderNumber));
       }
     });
-    return requestList;
+    return new TelegramSendContentRequest(requestList);
   }
 
   public Subscription getById(UUID subscriptionId) {
@@ -76,4 +73,5 @@ public class SubscriptionService {
             () -> new SubscriptionNotFound(subscriptionId,
             format("Subscription with id[%s] not found", subscriptionId)));
   }
+
 }
