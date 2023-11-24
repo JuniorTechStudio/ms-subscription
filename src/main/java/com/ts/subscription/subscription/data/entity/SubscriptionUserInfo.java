@@ -1,9 +1,7 @@
 package com.ts.subscription.subscription.data.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,17 +19,16 @@ import org.hibernate.annotations.DynamicUpdate;
 public class SubscriptionUserInfo {
 
     @Id
-    @Column(name = "user_id")
-    private UUID userId;
+    @SequenceGenerator(name="pk_sequence",sequenceName="subscription_sequence", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,generator="pk_sequence")
+    @Column(name = "id")
+    private Integer id;
 
     @Column(name = "telegram_id")
     private String telegramId;
 
     @Column(name = "subscription_id")
     private UUID subscriptionId;
-
-    @Column(name = "subscription_title")
-    private String subscriptionTitle;
 
     @Column(name = "order_number")
     private int orderNumber;

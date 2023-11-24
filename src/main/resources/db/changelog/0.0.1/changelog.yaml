@@ -1,3 +1,13 @@
 databaseChangeLog:
   - include:
       file: db/changelog/0.0.1/changes/0.0.1-init.sql
+  - include:
+      file: db/changelog/0.0.1/changes/0.0.2-new-subscription-sequence.sql
+  - include:
+      file: db/changelog/0.0.1/changes/0.0.3-new-table-schedule_of_content_sending.sql
+  - include:
+      file: db/changelog/0.0.1/changes/0.0.4-delete-column-from-subscription_user_info.sql
+  - include:
+      file: db/changelog/0.0.1/changes/0.0.5-new-view-subscription_user_info.sql
+  - include:
+      file: db/changelog/0.0.1/changes/0.0.6-add-id-for-subscription_user_info.sql

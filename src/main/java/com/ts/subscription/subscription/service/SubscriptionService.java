@@ -36,10 +36,10 @@ public class SubscriptionService {
     return subscriptionMapper.toSubscriptionValue(subscription);
   }
 
-  public SubscriptionValue saveSubscription(SubscriptionCreateRequest request) {
+  public SubscriptionCreateResponse saveSubscription(SubscriptionCreateRequest request) {
     var newSubscription = new Subscription().setTitle(request.title());
     var savedSubscription = subscriptionRepository.save(newSubscription);
-    return subscriptionMapper.toSubscriptionValue(savedSubscription);
+    return subscriptionMapper.toSubscriptionCreateResponse(savedSubscription);
   }
 
   public SubscriptionUpdateResponse updateSubscription(UUID subscriptionId, SubscriptionUpdateRequest request) {
@@ -59,13 +59,14 @@ public class SubscriptionService {
       UUID subscriptionId = userInfo.getSubscriptionId();
       int orderNumber = userInfo.getOrderNumber();
       try {
-        String content = contentClient.getContentByOrderNumber(subscriptionId, orderNumber);
-        requestList.add(new TextToSend(userInfo.getTelegramId(), content));
+        ContentValue contentValue = contentClient.getContentByOrderNumber(subscriptionId, orderNumber);
+        requestList.add(new TextToSend(userInfo.getTelegramId(), contentValue.content()));
       } catch (Exception e) {
-        log.error(format("Can not get content by subscriptionId[%s] and orderNumber[%s]", subscriptionId, orderNumber));
+        log.error(format("Can not get content by subscriptionId[%s] and orderNumber[%s]", subscriptionId, orderNumber), e);
       }
     });
-    return new TelegramSendContentRequest(requestList);
+//    TODO Переделать
+    return new TelegramSendContentRequest(requestList, subscriptionUserInfoList.get(0).getSubscriptionId());
   }
 
   public Subscription getById(UUID subscriptionId) {
@@ -73,5 +74,4 @@ public class SubscriptionService {
             () -> new SubscriptionNotFound(subscriptionId,
             format("Subscription with id[%s] not found", subscriptionId)));
   }
-
 }

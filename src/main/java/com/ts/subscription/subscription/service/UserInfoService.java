@@ -7,6 +7,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -17,12 +18,18 @@ public class UserInfoService {
 
     public void subscribe(UUID subscriptionId, AddUserToSubscriptionRequest request) {
         var newSubscriptionUserInfo = new SubscriptionUserInfo()
-                .setUserId(UUID.randomUUID())
-                .setSubscriptionTitle(null)
                 .setTelegramId(request.telegramId())
                 .setSubscriptionId(subscriptionId)
-                .setOrderNumber(0);
+                .setOrderNumber(1);
         subscriptionUserInfoRepository.save(newSubscriptionUserInfo);
+    }
+
+    @Transactional
+    public void incrementOrderNumber(UUID subscriptionId, String telegramId) {
+        var subscriptionUserInfo = subscriptionUserInfoRepository
+                .findBySubscriptionIdAndTelegramId(subscriptionId, telegramId).orElseThrow();
+        int orderNumber = subscriptionUserInfo.getOrderNumber();
+        subscriptionUserInfo.setOrderNumber(orderNumber + 1);
     }
 
 }

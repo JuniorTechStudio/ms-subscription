@@ -1,6 +1,7 @@
 package com.ts.subscription.subscription.controller;
 
 import com.ts.subscription.subscription.data.dto.*;
+import com.ts.subscription.subscription.scheduler.SubscriptionScheduler;
 import com.ts.subscription.subscription.service.SubscriptionService;
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ public class SubscriptionController {
 
     private final SubscriptionService subscriptionService;
     private final UserInfoService userInfoService;
+    private final SubscriptionScheduler subscriptionScheduler;
 
     @GetMapping
     public ResponseEntity<SubscriptionsList> getAllSubscriptions() {
@@ -31,7 +33,7 @@ public class SubscriptionController {
     }
 
     @PostMapping
-    public ResponseEntity<SubscriptionValue> saveSubscriptionUserInfo(@RequestBody SubscriptionCreateRequest request) {
+    public ResponseEntity<SubscriptionCreateResponse> createSubscription(@RequestBody SubscriptionCreateRequest request) {
         var savedSubscription = subscriptionService.saveSubscription(request);
         return ResponseEntity.ok(savedSubscription);
     }
@@ -57,6 +59,21 @@ public class SubscriptionController {
             @RequestBody AddUserToSubscriptionRequest request
     ) {
         userInfoService.subscribe(subscriptionId, request);
+        return ResponseEntity.ok().build();
+    }
+
+  @PostMapping("/{subscriptionId}/users/{telegramId}")
+  public ResponseEntity<Void> incrementOrderNumber(
+          @PathVariable UUID subscriptionId,
+          @PathVariable String telegramId
+  ) {
+        userInfoService.incrementOrderNumber(subscriptionId, telegramId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/test")
+    public ResponseEntity<Void> testScheduler() {
+        subscriptionScheduler.prepareContent();
         return ResponseEntity.ok().build();
     }
     
