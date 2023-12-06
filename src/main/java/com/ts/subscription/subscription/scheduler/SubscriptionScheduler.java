@@ -1,20 +1,34 @@
 package com.ts.subscription.subscription.scheduler;
 
 import com.ts.subscription.subscription.facade.SubscriptionFacade;
+import com.ts.subscription.subscription.repository.ScheduleOfContentSendingRepository;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SubscriptionScheduler {
 
   private final SubscriptionFacade subscriptionFacade;
+  private final ThreadPoolTaskScheduler taskScheduler;
+  private final ScheduleOfContentSendingRepository scheduleOfContentSendingRepository;
 
-//  @Scheduled(fixedDelayString = "${schedule.prepare.content:300_000}", zone = "Europe/Moscow")
-  @Scheduled(cron = "0 0 13 * * *", zone = "Europe/Moscow")
-  public void prepareContent() {
-    subscriptionFacade.prepareAndSendContent();
+  @EventListener(ApplicationReadyEvent.class)
+  public void prepareSubscriptionSchedulers() {
+    log.info("---=== SubscriptionScheduler::prepareSubscriptionSchedulers ===---");
+    scheduleOfContentSendingRepository.findAll().forEach(schedule -> {
+      UUID subscriptionId = schedule.getSubscriptionId();
+      CronTrigger cronTrigger = schedule.getCronTrigger();
+      Runnable scheduleTask = () -> subscriptionFacade.prepareAndSendContent(subscriptionId);
+      taskScheduler.schedule(scheduleTask, cronTrigger);
+    });
   }
 
 }

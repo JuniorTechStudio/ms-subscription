@@ -6,6 +6,8 @@ import com.ts.subscription.subscription.service.SubscriptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class SubscriptionFacade {
@@ -14,8 +16,8 @@ public class SubscriptionFacade {
     private final SubscriptionUserInfoRepository subscriptionUserInfoRepository;
     private final TelegramAdapterClient telegramAdapterClient;
 
-    public void prepareAndSendContent() {
-        var subscriptionUserInfoList = subscriptionUserInfoRepository.findAll();
+    public void prepareAndSendContent(UUID subscriptionId) {
+        var subscriptionUserInfoList = subscriptionUserInfoRepository.findAllBySubscriptionId(subscriptionId);
         var telegramSendContentRequest = subscriptionService.prepareContentForSending(subscriptionUserInfoList);
         telegramAdapterClient.sendContent(telegramSendContentRequest);
     }

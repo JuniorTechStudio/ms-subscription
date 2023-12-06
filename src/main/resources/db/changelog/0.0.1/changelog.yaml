@@ -11,3 +11,5 @@ databaseChangeLog:
       file: db/changelog/0.0.1/changes/0.0.5-new-view-subscription_user_info.sql
   - include:
       file: db/changelog/0.0.1/changes/0.0.6-add-id-for-subscription_user_info.sql
+  - include:
+      file: db/changelog/0.0.1/changes/0.0.7-alter-table-schedule_of_content_sending.sql

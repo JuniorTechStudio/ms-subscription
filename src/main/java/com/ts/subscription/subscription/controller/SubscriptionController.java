@@ -18,7 +18,6 @@ public class SubscriptionController {
 
     private final SubscriptionService subscriptionService;
     private final UserInfoService userInfoService;
-    private final SubscriptionScheduler subscriptionScheduler;
 
     @GetMapping
     public ResponseEntity<SubscriptionsList> getAllSubscriptions() {
@@ -68,12 +67,6 @@ public class SubscriptionController {
           @PathVariable String telegramId
   ) {
         userInfoService.incrementOrderNumber(subscriptionId, telegramId);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/test")
-    public ResponseEntity<Void> testScheduler() {
-        subscriptionScheduler.prepareContent();
         return ResponseEntity.ok().build();
     }
     
